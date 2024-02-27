@@ -51,7 +51,7 @@
         const response = await fetch(`${URLBack}/login`, {
             method: "POST",
             body: JSON.stringify({ username, password }),
-            headers: { "Content-Type": "application/json" }
+            // headers: { "Content-Type": "application/json" }
         })
         if (response.status != 200) {
             invalidLogin()
