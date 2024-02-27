@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang='pt-br'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <link rel='stylesheet' href='login.css'>
+    <!-- <script src='app.js' defer></script> -->
+    <title>Document</title>
+</head>
+
+<body>
+
+    <form>
+        <h3>Login</h3>
+        <label for="username">Usuário:</label>
+        <input type="text" name="username" id="username">
+
+        <label for="password">Senha:</label>
+        <input type="password" name="password" id="password">
+        <label id="msgError">Login ou senha inválido!</label>
+        <div class="remember">
+            <input type="checkbox">
+            <span>Lembrar login?</span>
+        </div>
+
+        <button type="submit" id="btnSubmit">Entrar</button>
+    </form>
+</body>
+
+
+<script>
+    const URLBack = "https://project-alta-amber.vercel.app"
+    localStorage.clear()
+
+    const form = document.querySelectorAll('form')[0]
+
+
+
+    form.addEventListener('submit', login)
+
+
+
+
+    async function login(e) {
+        e.preventDefault()
+        const username = document.querySelector('#username').value
+        const password = document.querySelector('#password').value
+
+        const response = await fetch(`${URLBack}/login`, {
+            method: "POST",
+            body: JSON.stringify({ username, password }),
+            headers: { "Content-Type": "application/json" }
+        })
+        if (response.status != 200) {
+            invalidLogin()
+        } else {
+            const data = await response.json()
+            localStorage.setItem("Token", data.token)
+            window.location.href = "home.html"
+        }
+
+
+    }
+
+    function invalidLogin() {
+        document.querySelector('#username').style.border = "1px solid red"
+        document.querySelector('#password').style.border = "1px solid red"
+        document.querySelector('#msgError').style.display = "block"
+    }
+
+
+</script>
+
+</html>
