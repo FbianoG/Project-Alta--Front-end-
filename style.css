@@ -8,6 +8,7 @@
 body {
     width: 100%;
     height: 100vh;
+    background: #fdfdfd;
 }
 
 
@@ -37,46 +38,42 @@ body {
     align-content: start;
 }
 
-
-.i::before {
-    content: "1";
+.marker {
+    position: absolute;
+    top: 0;
+    right: -30px;
+    width: 30px;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: white;
     font-weight: 700;
+    color: white;
+    background: #7b57ff;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
-    width: 30px;
-    /* Largura da borda lateral */
-    height: 100%;
-    background: #7b57ff;
-    position: absolute;
-    /* Mude de 'relative' para 'absolute' */
-    top: 0;
-    right: -30px;
-    /* Mude de 'right' para 'left' */
 }
 
-.p::before {
+.int {
+    background: #62a95a;
+}
 
-        content: "2";
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: white;
-        font-weight: 700;
-        border-top-left-radius: 5px;
-        border-bottom-left-radius: 5px;
-        width: 30px;
-        /* Largura da borda lateral */
-        height: 100%;
-        background: #7b57ff;
-        position: absolute;
-        /* Mude de 'relative' para 'absolute' */
-        top: 0;
-        left: -30px;
-        /* Mude de 'right' para 'left' */
+.pulse {
+
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+
+    30% {
+        background: #ff2d11;
+    }
+
+    70% {
+        background: #ff2d11;
+    }
+
 }
 
 .cardData {

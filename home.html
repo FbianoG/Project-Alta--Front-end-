@@ -16,7 +16,7 @@
     <h2>Box - Emergência Adulta</h2>
     <div class="patientsList">
 
-        <div class="patientCard i">
+        <!-- <div class="patientCard i">
             <input type="text" name="id" style="display: none;" value="">
             <input type="text" name="name" id="name" placeholder="Paciente">
             <div class="cardData">
@@ -37,7 +37,7 @@
                 <button onclick="oi()">Salvar</button>
                 <button>Limpar</button>
             </div>
-        </div>
+        </div> -->
 
 
 
@@ -51,12 +51,12 @@
 
 
     <script>
-        const URLBack = "https://project-alta-two.vercel.app"
-        // const URLBack = "http://localhost:3000"
+        // const URLBack = "projeto-alta-back-end-git-main-fbianog.vercel.app"
+        const URLBack = "http://localhost:3000"
         const token = localStorage.getItem("Token")
-        if (!token) {
-            window.location.href = "login.html"
-        }
+        // if (!token) {
+        //     window.location.href = "login.html"
+        // }
         const list = document.querySelectorAll('.patientsList')[0]
 
         function oi() {
@@ -64,24 +64,27 @@
             console.log(input1)
         }
 
-        async function getPatients() {
-            const response = await fetch(`${URLBack}/getPatient`, {
+        async function getLeitos() {
+            const response = await fetch(`${URLBack}/getLeitos`, {
                 method: "POST",
                 body: JSON.stringify({ token }),
                 headers: { "Content-Type": "application/json" }
             })
-            if (response.status === 401 || response.status === 500) {
-                window.location.href = "login.html"
-            }
+            // if (response.status === 401 || response.status === 500) {
+            //     window.location.href = "login.html"
+            // }
             const data = await response.json()
-            loadPatients(data)
+            console.log(data);
+            loadPatients(data.leitos)
         }
 
         function loadPatients(e) {
             list.innerHTML = ""
             e.forEach(element => {
-                const newCardPatient = document.createElement("div")
+                const newCardPatient = document.createElement("form")
                 newCardPatient.classList = "patientCard i"
+                newCardPatient.method = "post"
+                newCardPatient.action = `${URLBack}/updateLeito`
                 newCardPatient.innerHTML = cardPatientHTML(element)
                 list.appendChild(newCardPatient)
                 if (element.name === "") {
@@ -113,9 +116,10 @@
             </div>
             <textarea name="obs" spellcheck="false">${e.obs}</textarea>
             <div class="cardButtons">
-                <button id="btnSave">Salvar</button>
+                <button id="btnSave" type="submit">Salvar</button>
                 <button id="btnClear">Limpar</button>
             </div>
+            <div class="marker ${e.salta == true ? "pulse" : ""} ${e.alta == true ? "int" : ""}">${e.id}</div>
             `
             return html
         }
@@ -165,7 +169,7 @@
             card.style.opacity = "0.4"
         }
 
-        getPatients()
+        getLeitos()
 
     </script>
 </body>
